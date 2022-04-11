@@ -15,8 +15,8 @@ from yukari.converters import (
     userconverter, roleconverter
 )
 from yukari.utils import EventList, SubCommandList
-from utils.logger import LogLevel, get_logger
-from utils.python_utils import DefaultValueList
+from yukari.logger import LogLevel, get_logger
+from yukari.utils import DefaultValueList
 
 
 class BaseCommand:

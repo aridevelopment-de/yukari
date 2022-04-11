@@ -18,23 +18,23 @@ class MemberConverter(BaseConverter):
             mention = mention[2:-1]
 
             if mention.startswith('!'):
-                # If its a nickname
+                # If it's a nickname
                 mention = mention[1:]
 
-                if not mention.isdecimal():
-                    return None
+            if not mention.isdecimal():
+                return None
 
-                member_id = int(mention)
+            member_id = int(mention)
 
-                if self.message.guild is None:
-                    return None
+            if self.message.guild is None:
+                return None
 
-                member = self.message.guild.get_member(member_id)
+            member = self.message.guild.get_member(member_id)
 
-                if member is None:
-                    return None
+            if member is None:
+                return None
 
-                return member, 1
+            return member, 1
 
         return None
 

@@ -12,7 +12,7 @@ import discord
 
 from yukari.enums import EventType
 from yukari.i18n.registry import get_i18n_registry
-from utils.logger import get_logger
+from yukari.logger import get_logger
 
 
 class CategoryHeader:

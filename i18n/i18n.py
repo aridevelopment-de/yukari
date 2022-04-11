@@ -11,7 +11,7 @@ import yaml
 from dotenv import load_dotenv
 
 from yukari.i18n.registry import get_i18n_registry
-from utils.logger import get_logger
+from yukari.logger import get_logger
 
 load_dotenv()
 

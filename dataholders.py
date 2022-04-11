@@ -1,10 +1,7 @@
-import dataclasses
-
 import discord
 from typing import Union
 
 from yukari.enums import EventType
-from utils.static import client
 
 
 class _EventDataHolder:
@@ -12,7 +9,6 @@ class _EventDataHolder:
     Base Class for Event class holders
     """
     EVENT_TYPE: EventType
-
 
 
 class ReactionEmoji:
@@ -60,13 +56,14 @@ class ReactionAddEvent(_EventDataHolder):
     """
     EVENT_TYPE = EventType.REACTION_ADD
 
-    def __init__(self, author_id: int, message_id: int, channel_id: int, guild_id: Union[int, None], emoji: ReactionEmoji):
+    def __init__(self, author_id: int, message_id: int, channel_id: int, guild_id: Union[int, None], emoji: ReactionEmoji, client: discord.Client):
         self.author_id = author_id
         self.message_id = message_id
         self.channel_id = channel_id
         self.guild_id = guild_id
         self.emoji = emoji
         self._is_guild = self.guild_id is not None
+        self._client = client
 
     async def get_message(self) -> discord.Message:
         return await self.channel.fetch_message(self.message_id)
@@ -76,15 +73,15 @@ class ReactionAddEvent(_EventDataHolder):
         if self.is_guild:
             return self.guild.get_member(self.author_id)
         else:
-            return client.get_user(self.author_id)
+            return self._client.get_user(self.author_id)
 
     @property
     def channel(self) -> discord.TextChannel:
-        return client.get_channel(self.channel_id)
+        return self._client.get_channel(self.channel_id)
 
     @property
     def guild(self) -> discord.Guild:
-        return client.get_guild(self.guild_id)
+        return self._client.get_guild(self.guild_id)
 
     @property
     def is_guild(self) -> bool:

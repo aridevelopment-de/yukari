@@ -1,7 +1,21 @@
-from typing import List
+from typing import List, Any
 
 from yukari.baseheaders import EventWrapper, SubcommandWrapper
 from yukari.enums import EventType
+
+
+class DefaultValueList(list):
+    def get(self, index: int, default: Any = None) -> Any:
+        """
+        Returns the value at the given index, or the default value if the index is out of range.
+        :param index: The index of the value to return.
+        :param default: The default value to return if the index is out of range.
+        :return: The value at the given index, or the default value if the index is out of range.
+        """
+        try:
+            return self[index]
+        except IndexError:
+            return default
 
 
 class EventList(list):

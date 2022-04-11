@@ -1,7 +1,7 @@
 from yukari.baseheaders import EventWrapper, SubcommandWrapper
 from yukari.enums import EventType
-from utils.logger import LogLevel, get_logger
-from utils.permissions import PermissionHelper, PermissionHolder
+from yukari.logger import LogLevel, get_logger
+from yukari.permissions.permissions import PermissionHelper, PermissionHolder
 
 
 def SubCommand(name: str = ""):

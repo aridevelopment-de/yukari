@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 
 from yukari.database.holders import GuildOptions, UserOptions, UserProfile
-from utils.permissions import Permission, PermissionHelper, PermissionHolder
-from utils.logger import get_logger
+from yukari.permissions.permissions import Permission, PermissionHelper, PermissionHolder
+from yukari.logger import get_logger
 
 load_dotenv()
 

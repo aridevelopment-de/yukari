@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from utils.logger import get_logger
+from yukari.logger import get_logger
 
 if TYPE_CHECKING:
     from yukari.i18n.i18n import I18n
