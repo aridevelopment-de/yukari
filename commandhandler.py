@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 import time
-from typing import Any, AnyStr, Dict, List, Tuple, Union
+from typing import Any, AnyStr, Dict, List, Tuple, Union, Callable
 
 import discord
 
-from yukari.logger import LogLevel, get_logger
-from yukari.permissions.permissions import PermissionHelper
 from yukari.basecommand import BaseCommand
 from yukari.baseheaders import CategoryHeader
-from yukari.database.db import get_db
+from yukari.logger import LogLevel, get_logger
+from yukari.permissions.permissions import PermissionHelper
 
 command_handler_instance = None
 category_handler_instance = None
@@ -119,12 +118,18 @@ class CommandHandler:
     This is the CommandHandler which handles the user input, converts it into commands,
     checks for permissions and cooldowns
     """
-    def __init__(self):
+    def __init__(self, get_guild_lang: Callable, get_user_lang: Callable, user_exists: Callable, get_user_permission: Callable):
         global command_handler_instance
 
         self.commands = {}
         self.cooldowns = {}
         self.prefix = ["n+"]
+
+        self.get_guild_lang = get_guild_lang
+        self.get_user_lang = get_user_lang
+        self.user_exists = user_exists
+        self.get_user_permission = get_user_permission
+
         command_handler_instance = self
 
     async def run_command(self, message: discord.Message) -> Any:
@@ -177,16 +182,18 @@ class CommandHandler:
         :param cog_cls: the command class extending BaseCommand
         :return: None (may send a message TODO: change that)
         """
-        lang = get_db().get_guilds().get_lang(message.guild.id)
+        lang = self.get_guild_lang(message.guild.id)
 
-        if get_db().get_users().exists(message.author.id):
-            if lang != get_db().get_users().get_language(message.author.id):
-                lang = get_db().get_users().get_language(message.author.id)
+        if self.user_exists(message.author.id):
+            user_language = self.get_user_lang(message.author.id)
+
+            if lang != user_language:
+                lang = user_language
 
         bot_permission, guild_permission, only_bot_perm = self.get_command_permissions(
             invoke if self.is_command(invoke) else self.get_command_name_by_alias(invoke)
         )
-        user_permission = get_db().get_users().get_perm(message.author.id)
+        user_permission = self.get_user_permission(message.author.id)
 
         # If there are maintenance
         if self.get_command(invoke)["maintenance"]:
