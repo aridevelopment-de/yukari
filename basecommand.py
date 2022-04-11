@@ -12,7 +12,7 @@ from yukari.converters import (
     floatconverter,
     spacedstringconverter,
     memberconverter,
-    userconverter, roleconverter
+    roleconverter
 )
 from yukari.utils import EventList, SubCommandList
 from yukari.logger import LogLevel, get_logger
@@ -37,7 +37,6 @@ class BaseCommand:
         floatconverter.FloatConverter,
         spacedstringconverter.SpacedStringConverter,
         memberconverter.MemberConverter,
-        userconverter.UserConverter,
         roleconverter.RoleConverter
     ]
 
