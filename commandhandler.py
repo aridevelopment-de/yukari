@@ -118,12 +118,12 @@ class CommandHandler:
     This is the CommandHandler which handles the user input, converts it into commands,
     checks for permissions and cooldowns
     """
-    def __init__(self, get_guild_lang: Callable, get_user_lang: Callable, user_exists: Callable, get_user_permission: Callable):
+    def __init__(self, get_guild_lang: Callable, get_user_lang: Callable, user_exists: Callable, get_user_permission: Callable, prefix: List[str] = None):
         global command_handler_instance
 
         self.commands = {}
         self.cooldowns = {}
-        self.prefix = ["n+"]
+        self.prefix = prefix or ["n+"]
 
         self.get_guild_lang = get_guild_lang
         self.get_user_lang = get_user_lang
