@@ -3,6 +3,7 @@ import os
 from os import listdir
 from zipfile import ZipFile
 
+
 class ChatColor:
     """
     Enum class for console colors
