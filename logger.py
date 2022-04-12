@@ -93,7 +93,7 @@ class Logger:
     def __init__(self):
         global logger
 
-        self.path = os.path.dirname(__file__) + "/logs/"
+        self.path = os.path.dirname(__file__) + "/../logs/"
         self.console_fmt = f"[{{0}} {{1}} {{2}}{ChatColor.END}]: {{3}} {{4}}{ChatColor.END}"
         self.file_fmt = "[{0} {1}]: {2}"
         self.file_dt_fmt = "%d-%m-%Y"
