@@ -3,7 +3,6 @@ import os
 from os import listdir
 from zipfile import ZipFile
 
-from sbNative.runtimetools import getPath
 
 
 class ChatColor:
@@ -95,7 +94,7 @@ class Logger:
     def __init__(self):
         global logger
 
-        self.path = str(getPath().parent) + "\\logs\\"
+        self.path = os.path.dirname(__file__) + "/logs/"
         self.console_fmt = f"[{{0}} {{1}} {{2}}{ChatColor.END}]: {{3}} {{4}}{ChatColor.END}"
         self.file_fmt = "[{0} {1}]: {2}"
         self.file_dt_fmt = "%d-%m-%Y"
